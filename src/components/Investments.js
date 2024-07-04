@@ -1,7 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { DarkModeContext } from '../contexts/DarkModeContext';
 import TopPerformer from './TopPerformer';
+import InvestmentPerformance from './InvestmentPerformance';
 
 const investmentOptions = [
   { value: 'stocks', label: 'Stocks' },
@@ -127,6 +128,17 @@ function Investments({ user }) {
     return recommendation;
   };
 
+  const performanceData = useMemo(() => {
+    return [
+      { month: 1, portfolio: 100, benchmark: 100 },
+      { month: 2, portfolio: 105, benchmark: 102 },
+      { month: 3, portfolio: 110, benchmark: 104 },
+      { month: 4, portfolio: 108, benchmark: 103 },
+      { month: 5, portfolio: 112, benchmark: 105 },
+      { month: 6, portfolio: 115, benchmark: 107 },
+    ];
+  }, []);
+
   const getRiskScore = (risk) => {
     switch (risk) {
       case 'Low': return 1;
@@ -136,15 +148,16 @@ function Investments({ user }) {
     }
   };
 
+
   return (
     <motion.div
-      className={`min-h-screen bg-gray-100 dark:bg-gray-900 p-8 ${isDarkMode ? 'dark' : ''}`}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">Investment Recommendations</h1>
+    className={`min-h-screen pt-16 px-4 sm:px-6 lg:px-8 ${isDarkMode ? 'dark' : ''}`}
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 0.5 }}
+  >
+    <div className="max-w-6xl mx-auto">
+      <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">Investment Recommendations</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -239,6 +252,9 @@ function Investments({ user }) {
           </div>
         )}
       </div>
+      {recommendation && !isLoading && (
+        <InvestmentPerformance data={performanceData} />
+      )}
     </motion.div>
   );
 }

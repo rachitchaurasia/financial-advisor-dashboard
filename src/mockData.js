@@ -1,7 +1,7 @@
 export const users = [
     {
       id: 1,
-      name: "John Doe",
+      name: "Rachit Chaurasia",
       phoneNumber: "+61412345678",
       password: "password123",
       age: 35,
@@ -10,7 +10,7 @@ export const users = [
       liabilities: 150000,
       riskAppetite: "moderate",
       financialGoals: ["Buy a house in 5 years", "Save for retirement"],
-      lastLogin: "2023-07-03T10:30:00Z"
+      lastLogin: "2024-07-03T10:30:00Z"
     },
     {
       id: 2,
@@ -23,7 +23,7 @@ export const users = [
       liabilities: 50000,
       riskAppetite: "high",
       financialGoals: ["Start a business", "Travel the world"],
-      lastLogin: "2023-07-02T15:45:00Z"
+      lastLogin: "2024-07-02T15:45:00Z"
     }
   ];
   
@@ -61,17 +61,17 @@ export const users = [
         { name: "Other", value: user.income * 0.25 }
       ],
       recentTransactions: [
-        { date: '2023-07-01', description: 'Grocery Shopping', amount: -150.75 },
-        { date: '2023-07-02', description: 'Salary Deposit', amount: 3000 },
-        { date: '2023-07-03', description: 'Electricity Bill', amount: -180 },
-        { date: '2023-07-04', description: 'Online Purchase', amount: -79.99 },
-        { date: '2023-07-05', description: 'Restaurant Dinner', amount: -120 }
+        { date: '2024-07-01', description: 'Grocery Shopping', amount: -150.75 },
+        { date: '2024-07-02', description: 'Salary Deposit', amount: 3000 },
+        { date: '2024-07-03', description: 'Electricity Bill', amount: -180 },
+        { date: '2024-07-04', description: 'Online Purchase', amount: -79.99 },
+        { date: '2024-07-05', description: 'Restaurant Dinner', amount: -120 }
       ],
       upcomingBills: [
-        { dueDate: '2023-07-15', description: 'Internet Bill', amount: 79.99 },
-        { dueDate: '2023-07-20', description: 'Car Insurance', amount: 150 },
-        { dueDate: '2023-07-25', description: 'Gym Membership', amount: 50 },
-        { dueDate: '2023-07-31', description: 'Rent', amount: 1500 }
+        { dueDate: '2024-07-15', description: 'Internet Bill', amount: 79.99 },
+        { dueDate: '2024-07-20', description: 'Car Insurance', amount: 150 },
+        { dueDate: '2024-07-25', description: 'Gym Membership', amount: 50 },
+        { dueDate: '2024-07-31', description: 'Rent', amount: 1500 }
       ],
       insights: [
         "Your spending on entertainment has increased by 15% compared to last month.",

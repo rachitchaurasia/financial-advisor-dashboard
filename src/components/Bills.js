@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { motion } from 'framer-motion';
-// eslint-disable-next-line
-import { Line, Pie } from 'react-chartjs-2';
+import { Pie, Line } from 'react-chartjs-2';
 import { DarkModeContext } from '../contexts/DarkModeContext';
 import { generateMockData } from '../mockData';
 
@@ -34,9 +33,30 @@ function Bills({ user }) {
 
   const handleCreditCardPayment = (e) => {
     e.preventDefault();
-    // Here you would typically send this payment to your backend
     alert(`Payment of $${creditCardPayment} submitted!`);
     setCreditCardPayment('');
+  };
+
+  const creditCardData = {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    datasets: [
+      {
+        label: 'Credit Usage',
+        data: [3000, 3500, 4200, 3800, 4000, 4500],
+        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+      },
+    ],
+  };
+
+  const creditCardOptions = {
+    responsive: true,
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: 5000,
+      },
+    },
   };
 
   const recurringPayments = data.upcomingBills.filter(bill => 
@@ -45,7 +65,7 @@ function Bills({ user }) {
 
   return (
     <motion.div
-      className={`min-h-screen bg-gray-100 dark:bg-gray-900 p-8 ${isDarkMode ? 'dark' : ''}`}
+      className={`min-h-screen pt-16 bg-gray-100 dark:bg-gray-900 p-8 ${isDarkMode ? 'dark' : ''}`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -65,12 +85,42 @@ function Bills({ user }) {
               ))}
             </div>
           </motion.div>
+
           <motion.div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-            <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Credit Card</h2>
-            <div className="mb-4">
-              <p className="text-gray-600 dark:text-gray-300">Current Balance: $1,234.56</p>
-              <p className="text-gray-600 dark:text-gray-300">Minimum Due: $50.00</p>
-              <p className="text-gray-600 dark:text-gray-300">Due Date: 2023-07-25</p>
+            <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Credit Card Overview</h2>
+            <div className="flex justify-between items-center mb-4">
+              <div>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Card Number</p>
+                <p className="text-lg font-semibold">**** **** **** 4802</p>
+              </div>
+              <div className="text-right">
+                <p className="text-sm text-gray-600 dark:text-gray-400">Credit Limit</p>
+                <p className="text-lg font-semibold">$5,000</p>
+              </div>
+            </div>
+            <div className="flex justify-between items-center mb-4">
+              <div>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Current Balance</p>
+                <p className="text-2xl font-bold text-blue-600">$4,000</p>
+              </div>
+              <div className="text-right">
+                <p className="text-sm text-gray-600 dark:text-gray-400">Available Credit</p>
+                <p className="text-lg font-semibold text-green-600">$1,000</p>
+              </div>
+            </div>
+            <div className="flex justify-between items-center mb-6">
+              <div>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Minimum Payment</p>
+                <p className="text-lg font-semibold text-red-600">$200</p>
+              </div>
+              <div className="text-right">
+                <p className="text-sm text-gray-600 dark:text-gray-400">Due Date</p>
+                <p className="text-lg font-semibold">Dec 25, 2024</p>
+              </div>
+            </div>
+            <div className="mb-6">
+              <h3 className="text-lg font-semibold mb-2">Credit Usage - Last 6 Months</h3>
+              <Line data={creditCardData} options={creditCardOptions} />
             </div>
             <form onSubmit={handleCreditCardPayment} className="space-y-4">
               <input
@@ -80,11 +130,12 @@ function Bills({ user }) {
                 placeholder="Enter payment amount"
                 className="w-full p-2 border rounded"
               />
-              <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">
+              <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition duration-300">
                 Make Payment
               </button>
             </form>
           </motion.div>
+
           <motion.div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow col-span-full">
             <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Recurring Payments</h2>
             <div className="space-y-2">

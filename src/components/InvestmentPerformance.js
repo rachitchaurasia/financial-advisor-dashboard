@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { Line } from 'react-chartjs-2';
 import { motion } from 'framer-motion';
 import { DarkModeContext } from '../contexts/DarkModeContext';
@@ -9,25 +9,25 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 function InvestmentPerformance({ data }) {
   const { isDarkMode } = useContext(DarkModeContext);
 
-  const chartData = {
+  const chartData = useMemo(() => ({
     labels: data.map(item => `Month ${item.month}`),
     datasets: [
       {
         label: 'Portfolio',
         data: data.map(item => item.portfolio),
-        borderColor: isDarkMode ? 'rgba(75, 192, 192, 1)' : 'rgba(75, 192, 192, 1)',
-        backgroundColor: isDarkMode ? 'rgba(75, 192, 192, 0.2)' : 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
       },
       {
         label: 'Benchmark',
         data: data.map(item => item.benchmark),
-        borderColor: isDarkMode ? 'rgba(255, 99, 132, 1)' : 'rgba(255, 99, 132, 1)',
-        backgroundColor: isDarkMode ? 'rgba(255, 99, 132, 0.2)' : 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
       }
     ]
-  };
+  }), [data]);
 
-  const options = {
+  const options = useMemo(() => ({
     responsive: true,
     plugins: {
       legend: {
@@ -52,11 +52,11 @@ function InvestmentPerformance({ data }) {
         grid: { color: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)' },
       },
     },
-  };
+  }), [isDarkMode]);
 
   return (
     <motion.div
-      className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow"
+      className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow mt-8"
       initial={{ scale: 0.9, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -67,4 +67,4 @@ function InvestmentPerformance({ data }) {
   );
 }
 
-export default InvestmentPerformance;
+export default React.memo(InvestmentPerformance);
