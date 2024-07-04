@@ -16,7 +16,7 @@ function NavBar({ loggedInUser, setLoggedInUser }) {
   if (!loggedInUser) return null; // Don't render NavBar if user is not logged in
 
   return (
-    <nav className={`${isDarkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg fixed top-0 left-0 right-0 z-50 h-16 sm:h-20`}>
+    <nav className={`${isDarkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg fixed top-0 left-0 right-0 z-50`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
