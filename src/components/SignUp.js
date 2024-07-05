@@ -16,6 +16,9 @@ function SignUp({ setLoggedInUser }) {
     liabilities: '',
   });
   const [error, setError] = useState('');
+  const [bankStatement, setBankStatement] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadSuccess, setUploadSuccess] = useState(false);
   const navigate = useNavigate();
   const { isDarkMode } = useContext(DarkModeContext);
 
@@ -23,11 +26,33 @@ function SignUp({ setLoggedInUser }) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file && file.type === 'text/csv') {
+      setBankStatement(file);
+      setError('');
+    } else {
+      setBankStatement(null);
+      setError('Please upload a CSV file');
+    }
+  };
+
+  const simulateUpload = () => {
+    setIsUploading(true);
+    setTimeout(() => {
+      setIsUploading(false);
+      setUploadSuccess(true);
+    }, 2000); // Simulate a 2-second upload
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (users.some(u => u.phoneNumber === formData.phoneNumber)) {
       setError('Phone number already exists');
     } else {
+      if (bankStatement) {
+        simulateUpload();
+      }
       const newUser = { ...formData, id: users.length + 1 };
       users.push(newUser);
       setLoggedInUser(newUser);
@@ -75,6 +100,28 @@ function SignUp({ setLoggedInUser }) {
               />
             </div>
           ))}
+
+          <div>
+            <label htmlFor="bankStatement" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Upload Bank Statement (CSV only)
+            </label>
+            <input
+              id="bankStatement"
+              name="bankStatement"
+              type="file"
+              accept=".csv"
+              onChange={handleFileChange}
+              className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm dark:bg-gray-700"
+            />
+          </div>
+
+          {isUploading && (
+            <p className="text-blue-500 dark:text-blue-400 text-sm">Uploading bank statement...</p>
+          )}
+
+          {uploadSuccess && (
+            <p className="text-green-500 dark:text-green-400 text-sm">Bank statement uploaded successfully!</p>
+          )}
 
           {error && <p className="text-red-500 dark:text-red-400 text-xs italic">{error}</p>}
 
