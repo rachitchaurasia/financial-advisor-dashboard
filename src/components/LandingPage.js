@@ -18,7 +18,7 @@ function LandingPage() {
         <div className="flex justify-end mb-4">
           <DarkModeToggle />
         </div>
-        <h1 className="text-4xl font-bold mb-4 text-gray-900 dark:text-white">AI Financial Advisor</h1>
+        <h1 className="text-3xl font-extrabold mb-4 text-gray-900 dark:text-white">FinAdvisor</h1>
         <p className="mb-8 text-gray-600 dark:text-gray-300">Your personal guide to financial success</p>
         <div className="space-x-4">
           <Link to="/login" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">
